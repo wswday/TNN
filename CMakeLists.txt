@@ -40,6 +40,7 @@ option(TNN_ONNX2TNN_ENABLE "Enable ONNX2TNN Converter" OFF)
 option(TNN_TNN2MEM_ENABLE "Enable tnn2mem" OFF)
 option(TNN_BUILD_BENCHMARK_TEST_LIB_ENABLE "Enable Build Benchmark Test Lib" OFF)
 option(TNN_GLIBCXX_USE_CXX11_ABI_ENABLE "Enable Use CXX11 ABI" ON)
+option(TNN_EXAMPLES_ENABLE "Enable Examples" OFF)
 
 set(TNN_USE_GFLAGS OFF)
 
@@ -361,7 +362,7 @@ elseif(SYSTEM.Windows)
     include(platforms/windows/CMakeLists.txt)
 endif()
 
-if (TNN_TEST_ENABLE OR TNN_CONVERTER_ENABLE OR TNN_MODEL_CHECK_ENABLE)
+if (TNN_TEST_ENABLE OR TNN_CONVERTER_ENABLE OR TNN_MODEL_CHECK_ENABLE OR TNN_EXAMPLES_ENABLE)
     set(TNN_USE_GFLAGS ON)
 endif ()
 
@@ -395,4 +396,8 @@ if(TNN_COVERAGE)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -coverage -fprofile-arcs -ftest-coverage")
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -coverage -lgcov")
     endif()
+endif()
+
+if(TNN_EXAMPLES_ENABLE)
+    add_subdirectory(examples/linux/x86)
 endif()
